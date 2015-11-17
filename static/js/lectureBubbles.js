@@ -26,13 +26,13 @@ function makeGraph() {
                     .data(bubble.nodes(scrub(data)).filter(function(d) { return !d.children; }))// HERE -- data was changed to match up with my param name.
                     .enter().append("g")
                         .attr("class", "node")
-                        .attr("transform", function(d) {return "translate(" + d.x + "," + d.y + ")"; });
+                        .attr("transform", function(d) {  return "translate(" + d.x + "," + d.y + ")"; });
 
                 node.append("title")
                     .text(function(d) { return d.staff + ": " + format(d.value); });
 
                 node.append("circle")
-                    .attr('id', function(d){ debugger;return "circle"+d.value; })
+                    .attr('id', function(d){ return "circle"+d.value; })
                     .attr("r", function(d) { return d.r; })
                     .style("fill", function(d) {
                         return color(d.staff);
@@ -41,11 +41,10 @@ function makeGraph() {
                 // For each node, include an invisible rectangle for text-wrapping boundaries.
                 node.append("rect")
                     .attr('id', function(d){ return "rect"+d.value; })
-                    .attr("x", function(d){ return d.x })
-                    .attr("y", function(d){  })
                     .attr("width", function(d) { return (d.r * 2);})
                     .style("opacity", '0')
-                    .attr("height", function(d) { return (d.r * 2);});
+                    .attr("height", function(d) { return (d.r * 2);})
+                    .attr("transform", function(d) { return "translate(" + (d.x+30) + "," + (d.y+70) + ")"; });
 
                 node.append("text")
                     .attr('id', function(d){ return "text"+d.value; })
@@ -80,6 +79,9 @@ function makeGraph() {
             legend.append('rect')
                   .attr('width', legendRectSize)
                   .attr('height', legendRectSize)
+                  .attr('x', function(d){ return (d.x); })
+
+                  .attr('y', function(d){ return (d.y); })
                   .style('fill', function(d){ return color(d); })
                   .style('stroke', color);
 
